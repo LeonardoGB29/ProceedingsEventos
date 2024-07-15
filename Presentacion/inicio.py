@@ -1,8 +1,7 @@
 from flask import Flask
+from .Vista.Routes.inicioSesion import inicioSesion
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return '¡Hola, Mundo!'
+app.register_blueprint(inicioSesion)
 
