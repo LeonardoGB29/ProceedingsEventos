@@ -1,15 +1,18 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-from Dominio.Entidad.Administrador import Administrador
-from Dominio.Entidad.Autor import Autor
 
-class Usuario(Administrador, Autor):
-    def __init__(self):
-        self.nombre = None
-        self.email = None
-        self.id = None
+from utils.servicios.ServicioUsuario import db
 
-    def registrarse(self, ):
-        pass
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombres = db.Column(db.String(80))
+    apellidos = db.Column(db.String(80))
+    email = db.Column(db.String(120))
+    #contrasenia = db.Column(db.String(120))
 
+    def __init__(self, nombres, apellidos, email):
+        self.nombres = nombres
+        self.apellidos = apellidos
+        self.email = email
+        #self.contrasenia = contrasenia
