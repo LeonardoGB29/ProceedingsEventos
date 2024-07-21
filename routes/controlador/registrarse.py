@@ -14,9 +14,9 @@ def registro():
     nombres = request.form['nombres']
     apellidos = request.form['apellidos']
     email = request.form['email']
-    # contrasenia = "123"
+    contrasenia = request.form['contrasenia']
 
-    nuevo_usuario = Usuario(nombres, apellidos, email)
+    nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
 
     registrar_usuario(nuevo_usuario)
 
