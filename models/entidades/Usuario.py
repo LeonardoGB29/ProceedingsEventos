@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 
-from utils.servicios.ServicioUsuario import db
+from utils.repositorios.sqlAlchemy.conexionBd import db
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)

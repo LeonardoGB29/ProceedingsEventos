@@ -1,7 +1,12 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-from Dominio.Entidad.IUsuarioRepositorio import IUsuarioRepositorio
+from utils.repositorios.sqlAlchemy.conexionBd import db
 
-class UsuarioRepositorioImpl(IUsuarioRepositorio):
+def agregar_usuario_bd(usuario):
+    db.session.add(usuario)
+    db.session.commit()
+
+
+class UsuarioRepositorioImpl():
     pass

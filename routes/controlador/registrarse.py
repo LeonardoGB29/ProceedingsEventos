@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 from models.entidades.Usuario import Usuario
-from utils.servicios.ServicioUsuario import db
+from utils.servicios.ServicioUsuario import registrar_usuario
+
 
 registrarse = Blueprint('registrarse', __name__, template_folder='')
 
@@ -9,7 +10,6 @@ def home():
     return render_template('vista/assets/HTML/registro.html')
 
 @registrarse.route('/registrarse', methods=['POST'])
-
 def registro():
     nombres = request.form['nombres']
     apellidos = request.form['apellidos']
@@ -18,7 +18,6 @@ def registro():
 
     nuevo_usuario = Usuario(nombres, apellidos, email)
 
-    db.session.add(nuevo_usuario)
-    db.session.commit()
+    registrar_usuario(nuevo_usuario)
 
-    return "guardando usuario"
+    return 'Usuario registrado'

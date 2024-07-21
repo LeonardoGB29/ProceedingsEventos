@@ -1,7 +1,7 @@
 from flask import Flask
 from routes.controlador.inicioSesion import inicioSesion
 from routes.controlador.registrarse import registrarse
-from utils.servicios.ServicioUsuario import db
+from utils.repositorios.sqlAlchemy.conexionBd import db
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
