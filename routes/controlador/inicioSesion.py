@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for
+# routes/controlador/inicioSesion.py
+from flask import Blueprint, render_template
 
-inicioSesion = Blueprint('inicioSesion', __name__,template_folder='../Vista/Assets/HTML')
+inicio_sesion = Blueprint('inicioSesion', __name__, template_folder='')
 
-@inicioSesion.route('/')
-def home():
-    return render_template('inicioSesion.html')
+@inicio_sesion.route('/login')
+def login():
+    return render_template('vista/assets/HTML/login.html')

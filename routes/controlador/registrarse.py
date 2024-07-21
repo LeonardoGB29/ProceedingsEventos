@@ -1,15 +1,15 @@
-from flask import Blueprint, render_template, request
+# routes/controlador/registrarse.py
+from flask import Blueprint, render_template, request, redirect, url_for
 from models.entidades.Usuario import Usuario
 from utils.servicios.ServicioUsuario import registrar_usuario
-
 
 registrarse = Blueprint('registrarse', __name__, template_folder='')
 
 @registrarse.route('/')
-def home():
+def register():
     return render_template('vista/assets/HTML/registro.html')
 
-@registrarse.route('/registrarse', methods=['POST'])
+@registrarse.route('/enviarRegistro', methods=['POST'])
 def registro():
     nombres = request.form['nombres']
     apellidos = request.form['apellidos']
@@ -20,4 +20,5 @@ def registro():
 
     registrar_usuario(nuevo_usuario)
 
-    return 'Usuario registrado'
+    # Redireccionar a la ruta de inicio de sesión
+    return redirect(url_for('inicioSesion.login'))
