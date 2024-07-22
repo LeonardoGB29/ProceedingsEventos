@@ -11,13 +11,17 @@ Se usa adecuadamente las convenciones del estilo del lenguaje(PEP 8), por ejempl
 Funciones dentro de registrarse.py, son entendibles y cada una hace cosas diferentes.
 ```python
 
-perfil = Blueprint('perfil', __name__,template_folder='../Assets/HTML')
+@perfil_bp.route('/perfil/<int:usuario_id>')
+def mostrar_perfil(usuario_id):
+    usuario = Usuario.query.get(usuario_id)
+    if usuario:
+        return render_template('perfil.html', usuario=usuario)
+    else:
+        return "Usuario no encontrado", 404
 
-@perfil.route('/home/perfil')
-def home():
-    return render_template('perfil.html')
 ```
-
+## Conflictos
+1. hay un conflicto al querer mostrar los datos de la base de datos 
 
 
 # Laboratorio 10(SOLID)
