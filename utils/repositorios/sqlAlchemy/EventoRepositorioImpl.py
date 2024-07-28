@@ -1,8 +1,9 @@
 from utils.repositorios.sqlAlchemy.conexionBd import db
-from models.documentos.Evento import evento
+from models.documentos.Evento import Evento
 
-class EventoRepositorioImpl(evento):
+def agregar_evento(evento):
+    db.session.add(evento)
+    db.session.commit()
 
-    def agregar_evento(evento):
-        db.session.add(evento)
-        db.session.commit()
+class EventoRepositorioImpl():
+    pass
