@@ -1,13 +1,23 @@
+import os
 from flask import Flask, send_from_directory
 from routes.controlador.inicioSesion import inicio_sesion
 from routes.controlador.registrarse import registrarse
 from utils.repositorios.sqlAlchemy.conexionBd import db
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:leogb29@127.0.0.1/proceedingsEventos'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_name = os.getenv('DB_NAME')
 
+# Configurar la URI de la base de datos
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_password}@{db_host}/{db_name}'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 app.register_blueprint(registrarse, url_prefix='/')

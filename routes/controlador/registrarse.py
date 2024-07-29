@@ -21,4 +21,4 @@ def registro():
     registrar_usuario(nuevo_usuario)
 
     # Redireccionar a la ruta de inicio de sesión
-    return redirect(url_for('inicioSesion.login'))
+    return redirect(url_for('inicio_sesion.login'))
