@@ -3,14 +3,14 @@
 
 class IUsuarioRepositorio:
     def __init__(self):
-        pass
+        return
 
     def adicionar_usuario(self, ):
-        pass
+        return
 
     def eliminar_usuario(self, ):
-        pass
+        return
 
     def actualizar_usuario(self, ):
-        pass
+        return
 

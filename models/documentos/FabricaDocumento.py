@@ -3,8 +3,8 @@
 
 class FabricaDocumento:
     def __init__(self):
-        pass
+        return
 
     def crear_documento(self, ):
-        pass
+        return
 

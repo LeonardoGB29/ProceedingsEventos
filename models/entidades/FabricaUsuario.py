@@ -3,14 +3,18 @@
 
 class FabricaUsuario:
     def __init__(self):
-        pass
+
+        return
 
     def crear_usuario(self, ):
-        pass
+
+        return
 
     def eliminar_usuario(self, ):
-        pass
+
+        return
 
     def actualizar_usuario(self, ):
-        pass
+
+        return
 

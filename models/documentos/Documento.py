@@ -10,5 +10,5 @@ class Documento:
         self.num_pag = None
 
     def mostrar_documento(self, ):
-        pass
+        return
 
