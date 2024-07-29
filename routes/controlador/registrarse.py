@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from models.entidades.Usuario import Usuario
 from utils.servicios.ServicioUsuario import registrar_usuario
 
-registrarse = Blueprint('registrarse', __name__, template_folder='')
+registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')
 
 @registrarse.route('/')
 def register():

@@ -1,7 +1,9 @@
-#!/usr/bin/python
-#-*- coding: utf-8 -*-
+from utils.repositorios.sqlAlchemy.conexionBd import db
+from models.documentos.Evento import Evento
 
-from Dominio.Seleccion.IEventoRepositorio import IEventoRepositorio
+def agregar_evento(evento):
+    db.session.add(evento)
+    db.session.commit()
 
-class EventoRepositorioImpl(IEventoRepositorio):
+class EventoRepositorioImpl():
     pass
