@@ -21,8 +21,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_password}@{db_ho
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
-app.register_blueprint(registrarse, url_prefix='/')
-app.register_blueprint(inicio_sesion, url_prefix='/login')
+app.register_blueprint(registrarse, url_prefix='/registrarse')
+app.register_blueprint(inicio_sesion, url_prefix='/')
 
 # ruta css???
 @app.route('/templates/vista/assets/CSS/<path:filename>')

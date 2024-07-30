@@ -5,7 +5,7 @@ from utils.servicios.ServicioUsuario import registrar_usuario
 
 registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')
 
-@registrarse.route('/')
+@registrarse.route('/registrarse ')
 def register():
     return render_template('vista/assets/HTML/registro.html')
 
