@@ -3,28 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/templates/vista/assets/CSS/style.css">
     <title>Crear Evento</title>
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                {% for category, message in messages %}
-                    alert('{{ message }}');
-                {% endfor %}
-            });
-        </script>
-        {% endif %}
-    {% endwith %}
     <div class="container">
         <h2>Crear Evento</h2>
         <form action="{{ url_for('administrador.crear_evento') }}" method="POST">
             <input type="text" name="nombre" placeholder="Nombre" required><br>
             <input type="date" name="fecha" placeholder="Fecha" required><br>
             <input type="text" name="edicion" placeholder="Edición" required><br>
-            <button> Crear Evento </button>
+            <button type="submit">Crear Evento</button>
         </form>
     </div>
 </body>
