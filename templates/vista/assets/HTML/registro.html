@@ -7,6 +7,17 @@
     <title>Registro</title>
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for category, message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
+  {% endwith %}
     <div class="container">
         <h2>Registro</h2>
         <form action="/enviarRegistro" method="POST">

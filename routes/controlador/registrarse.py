@@ -1,5 +1,5 @@
 # routes/controlador/registrarse.py
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.entidades.Usuario import Usuario
 from utils.servicios.ServicioUsuario import registrar_usuario
 
@@ -18,7 +18,8 @@ def registro():
 
     nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
 
-    registrar_usuario(nuevo_usuario)
-
-    # Redireccionar a la ruta de inicio de sesión
-    return redirect(url_for('inicio_sesion.login'))
+    if registrar_usuario(nuevo_usuario):
+        return redirect(url_for('inicio_sesion.login'))
+    else:
+        flash('El usuario ya existe')
+        return redirect(url_for('registrarse.register'))
