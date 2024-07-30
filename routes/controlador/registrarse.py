@@ -18,8 +18,7 @@ def registro():
 
     nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
 
-    if registrar_usuario(nuevo_usuario):
-        return redirect(url_for('inicio_sesion.login'))
-    else:
-        flash('El usuario ya existe')
-        return redirect(url_for('registrarse.register'))
+    registrar_usuario(nuevo_usuario)
+
+    # Redireccionar a la ruta de inicio de sesión
+    return redirect(url_for('inicio_sesion.login'))
