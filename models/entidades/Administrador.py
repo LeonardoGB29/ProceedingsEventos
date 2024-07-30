@@ -1,13 +1,14 @@
-#!/usr/bin/python
-#-*- coding: utf-8 -*-
+from models.entidades.Usuario import Usuario
+from utils.repositorios.sqlAlchemy.conexionBd import db
 
-class Administrador:
-    def __init__(self):
-        return
+class Administrador(Usuario):
+    id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
 
-    def crear_evento(self ):
-        return
+    def __init__(self, nombres, apellidos, email, contrasenia):
+        super().__init__(nombres, apellidos, email, contrasenia)
 
-    def actualizar_evento(self ):
-        return
+    def crear_evento(self, evento):
+        pass
 
+    def actualizar_evento(self, evento):
+        pass

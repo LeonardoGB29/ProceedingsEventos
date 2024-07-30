@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/templates/vista/assets/CSS/style.css">
-    <title>Registro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Crear Evento</title>
 </head>
 <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -19,13 +19,12 @@
         {% endif %}
     {% endwith %}
     <div class="container">
-        <h2>Registro</h2>
-        <form action="/enviarRegistro" method="POST">
-            <input type="text" name="nombres" placeholder="Nombres" required><br>
-            <input type="text" name="apellidos" placeholder="Apellidos" required><br>
-            <input type="email" name="email" placeholder="Email" required><br>
-            <input type="password" name="contrasenia" placeholder="Contraseña" required><br>
-            <button type="submit">Registrarse</button>
+        <h2>Crear Evento</h2>
+        <form action="{{ url_for('administrador.crear_evento') }}" method="POST">
+            <input type="text" name="nombre" placeholder="Nombre" required><br>
+            <input type="date" name="fecha" placeholder="Fecha" required><br>
+            <input type="text" name="edicion" placeholder="Edición" required><br>
+            <button> Crear Evento </button>
         </form>
     </div>
 </body>

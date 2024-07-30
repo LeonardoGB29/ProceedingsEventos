@@ -5,7 +5,6 @@ from models.documentos.Noticias import Noticias
 
 home = Blueprint('home', __name__, template_folder='../templates/vista/HTML')
 
-
 @home.route('/')
 def home_page():
     cronograma = Actividad.query.all()

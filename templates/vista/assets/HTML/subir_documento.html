@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Subir Documento</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                {% for category, message in messages %}
+                    alert('{{ message }}');
+                {% endfor %}
+            });
+        </script>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h2>Subir Documento</h2>
+        <form action="{{ url_for('autor.subir_documento') }}" method="POST">
+            <textarea name="resumen" placeholder="Resumen" required></textarea><br>
+            <textarea name="datos" placeholder="Datos" required></textarea><br>
+            <textarea name="conclusion" placeholder="Conclusión" required></textarea><br>
+            <input type="number" name="num_pag" placeholder="Número de páginas" required><br>
+            <select name="evento_id" required>
+                {% for evento in eventos %}
+                <option value="{{ evento.id }}">{{ evento.nombre }}</option>
+                {% endfor %}
+            </select><br>
+            <button type="submit">Subir Documento</button>
+        </form>
+    </div>
+</body>
+</html>
