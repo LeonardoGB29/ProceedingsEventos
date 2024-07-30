@@ -1,5 +1,6 @@
 import os
 from flask import Flask, send_from_directory
+from routes.controlador.home import home
 from routes.controlador.inicioSesion import inicio_sesion
 from routes.controlador.registrarse import registrarse
 from utils.repositorios.sqlAlchemy.conexionBd import db
@@ -23,6 +24,7 @@ db.init_app(app)
 
 app.register_blueprint(registrarse, url_prefix='/')
 app.register_blueprint(inicio_sesion, url_prefix='/login')
+app.register_blueprint(home, url_prefix='/home')
 
 # ruta css???
 @app.route('/templates/vista/assets/CSS/<path:filename>')
