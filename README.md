@@ -25,7 +25,3 @@ def crear_documento(resumen, datos, conclusion, num_pag, evento_id):
         db.session.rollback()
         raise e
 ```
-
-## Trinity (MVC)
-Aplicando el patrón Trinity (Modelo-Vista-Controlador), separé las responsabilidades entre Modelos, Vistas y Controladores para mejorar la modularidad y mantenibilidad del proyecto. Los Modelos gestionan la lógica de negocio y la interacción con la base de datos, las Vistas se encargan de la presentación y los Controladores manejan las solicitudes del usuario, delegando la lógica de negocio a los Modelos.
-Aplicando el patrón Trinity (Modelo-Vista-Controlador), separé las responsabilidades entre Modelos, Vistas y Controladores para mejorar la modularidad y mantenibilidad del proyecto. Los Modelos gestionan la lógica de negocio y la interacción con la base de datos usando SQLAlchemy, las Vistas se encargan de la presentación y los Controladores manejan las solicitudes del usuario. 
