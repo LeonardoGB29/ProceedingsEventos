@@ -12,3 +12,7 @@ class Usuario(db.Model):
         self.apellidos = apellidos
         self.email = email
         self.contrasenia = contrasenia
+
+    def registrarse_evento(cls):
+        return
+    

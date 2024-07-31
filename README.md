@@ -93,3 +93,55 @@ def verificar_usuario_bd(usuario):
 
 # LAB 11
 
+# Error/Exception Handling
+
+@registrarse.route('/enviarRegistro', methods=['POST'])
+def registro():
+    try:
+        nombres = request.form['nombres'].strip()
+        apellidos = request.form['apellidos'].strip()
+        email = request.form['email'].strip()
+        contrasenia = request.form['contrasenia'].strip()
+        
+        ...
+
+        nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
+
+        if registrar_usuario(nuevo_usuario):
+            flash('Registro exitoso, por favor inicie sesión.')
+            return redirect(url_for('inicio_sesion.login'))
+        else:
+            flash('El usuario ya existe.')
+            return redirect(url_for('registrarse.home_register'))
+
+    except Exception as e:
+
+        flash(f'Ocurrió un error: {str(e)}')
+        return redirect(url_for('registrarse.home_register'))
+
+# Things
+
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombres = db.Column(db.String(80))
+    apellidos = db.Column(db.String(80))
+    email = db.Column(db.String(120))
+    contrasenia = db.Column(db.String(120))
+
+    def __init__(self, nombres, apellidos, email,contrasenia):
+        self.nombres = nombres
+        self.apellidos = apellidos
+        self.email = email
+        self.contrasenia = contrasenia
+
+    def registrarse_evento(cls):
+        return
+    
+# Cookbook
+
+La base de datos se comporta como un singleton
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
