@@ -21,25 +21,3 @@
 </body>
 </html>
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/templates/vista/assets/CSS/style.css">
-    <title>Inicio Sesión</title>
-</head>
-<body>
-    <div class="container">
-        <h2>Inicio Sesión</h2>
-        <form action="{{ url_for('inicio_sesion.login') }}" method="POST">
-            <input type="email" name="email" placeholder="Email"><br>
-            <input type="password" name="contrasenia" placeholder="Contraseña"><br>
-            <button >Ingresar</button>
-            
-        </form>
-        <a href="{{ url_for('registrarse.register') }}">
-            <button>registrarse</button>
-        </a>
-    </div>
-</body>
-</html>
