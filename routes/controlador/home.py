@@ -11,10 +11,3 @@ def home_page():
     noticias = Noticias.query.all()
     return render_template('vista/assets/HTML/home.html', cronograma=cronograma, noticias=noticias)
 
-@home.route('/login')
-def login_nav():
-    return redirect(url_for('inicio_sesion.login'))
-
-@home.route('/registrarse')
-def register_nav():
-    return redirect(url_for('registrarse.register'))

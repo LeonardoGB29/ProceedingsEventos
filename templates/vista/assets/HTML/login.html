@@ -9,12 +9,15 @@
 <body>
     <div class="container">
         <h2>Inicio Sesión</h2>
-        <form action="/login" method="POST">
+        <form action="{{ url_for('inicio_sesion.login') }}" method="POST">
             <input type="email" name="email" placeholder="Email"><br>
             <input type="password" name="contrasenia" placeholder="Contraseña"><br>
             <button >Ingresar</button>
-            <button action ="\registrarse" >Registrarse</button>
+            
         </form>
+        <a href="{{ url_for('registrarse.register') }}">
+            <button>registrarse</button>
+        </a>
     </div>
 </body>
 </html>
