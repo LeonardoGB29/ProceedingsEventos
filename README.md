@@ -1,124 +1,150 @@
-github: https://github.com/KevinRodriguezLima/ProceedingsEventos
-# LAB 9, 10 (ABAJO)
+# Proyecto de Sistema de Publicación de Proceedings de Eventos
 
-# LAB 11
-# Acividad Laboratorio 11: Estilos de Programación
+## Propósito del Proyecto
+Este proyecto tiene como objetivo desarrollar un sistema de publicación de proceedings de eventos académicos. La plataforma integral facilitará la carga, revisión, publicación y acceso a los trabajos presentados en estos eventos, optimizando y agilizando los procesos involucrados.
 
-# Estilos aplicados
-## Estilo de Programación: Things
-Lo utilizo al encapsular datos y comportamientos en clases. Por ejemplo en models/Actividad.py : 
+## Funcionalidades
+### Diagrama de Casos de Uso
+![Diagrama de Casos de Uso](https://github.com/DanielfQo/ProceedingsEventos/edit/desarrollo/diagrama.png)
 
-class Actividad(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100))
-    descripcion = db.Column(db.String(100))
-    autores = db.Column(db.String(100))
-    responsables = db.Column(db.String(100))
+### Funcionalidades de Alto Nivel
+- **Registrar Usuarios:** Permitir el registro de nuevos usuarios en el sistema.
+- **Ver Eventos:** Mostrar eventos disponibles a los usuarios.
+- **Agregar Evento:** Permitir a los administradores crear nuevos eventos.
+- **Definir Cronograma:** Establecer fechas y horarios para los eventos.
+- **Enviar Paper:** Facilitar el envío de papers para revisión.
 
-    def __init__(self, nombre, descripcion, autores, responsables):
-        self.nombre = nombre
-        self.descripcion = descripcion
-        self.autores = autores
-        self.responsables = responsables
+### Prototipo (o GUI)
+- **Vista:** 
+  - crear_evento.html
+  - subir_documento.html
+  - home.html
+  - login.html
+  - perfil.html
+  - registro.html
 
-## Estilo de Programación: Persistent-Tables
-Tambien se puede decir que he utilizado el estilo de programación Persistent-Tables para gestionar y modelar los datos mediante el uso de tablas, ejemplo en models/Noticias.py:
+## Modelo de Dominio
+### Diagrama de Clases y Módulos
+![Diagrama de Clases](https://github.com/DanielfQo/ProceedingsEventos/edit/desarrollo/diagramaClases.png)
 
-from utils.repositorios.sqlAlchemy.conexionBd import db
+## Arquitectura y Patrones
+### Diagrama de Componentes o Paquetes
+![Diagrama de Componentes](https://github.com/DanielfQo/ProceedingsEventos/edit/desarrollo/diagramaComponentes.png)
 
-class Noticias(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(100))
-    contenido = db.Column(db.Text)
-    fecha = db.Column(db.Date)
+## Prácticas de Codificación Limpia Aplicadas
+### Descripción y Fragmento de Código (evidencia)
+Se utilizan nombres coherentes y descriptivos para funciones y variables.
 
-    def __init__(self, titulo, contenido, fecha):
-        self.titulo = titulo
-        self.contenido = contenido
-        self.fecha = fecha
+```python
+@registrarse.route('/enviarRegistro', methods=['POST'])
+def registro():
+    nombres = request.form['nombres']
+    apellidos = request.form['apellidos']
+    email = request.form['email']
+    contrasenia = request.form['contrasenia']
 
-## Estilo de Programación: 
-Respecto a lo que tenia que implementar no estoy utilizando otros estilos ya que me toco sobre todo modelado de tablas y hmtl asi como controladores, añadire más codigo o en otras secciones donde se pueda usar otros estilos.
+    nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
 
-# Acividad Laboratorio 9( CLEAN CODE )
-
-# Prácticas Aplicadas
-
-# Nombres
-
-Se utilizo nombres coherentes y descriptivos para funciones y variables. Por ejemplo: 
-@rutas.route('/')
-def home():
-    cronograma = Cronograma.query.all()
-    noticias = Noticias.query.all()
-    return render_template('inicio.html', cronograma=cronograma, noticias=noticias)
-
-`def home`se encarga de manejar la lógica para mostrar la página de `inicio`, dentro de esta función se obtienen los datos necesarios (cronogramas y noticias) de la base de datos para poder mostrarlos en la interfaz de usuario.
-
-#### Funciones
-
-Se dividió el código en funciones pequeñas y enfocadas. Por ejemplo, la función `initialize_database` en `inicio.py` se encarga únicamente de inicializar la base de datos.
-
-def initialize_database():
-    with app.app_context():
-        db.create_all()
+    # Verificar si el usuario ya existe
+    if registrar_usuario(nuevo_usuario):
+        return redirect(url_for('inicio_sesion.login'))
+    else:
+        flash('El usuario ya existe')
+        return redirect(url_for('registrarse.register'))
+```
 
 
-#### Comentarios
+## Principios SOLID Aplicados
+### Descripción y Fragmento de Código (evidencia)
+### Single-responsibility principle (SRP):
+El código se divide en funciones modulares.
 
-Se agrego comentarios descriptivos  a funciones y rutas para mejorar la comprensión del código. Por ejemplo:
+```python
+def registrar_usuario(usuario):
+    if not verificar_usuario_bd(usuario):
+        return False
 
-def create_app():
-    
-    #Función para crear y configurar la aplicación Flask
-    app = Flask(__name__, template_folder='Vista/Assets/HTML')
+    agregar_usuario_bd(usuario)
+    return True
+```
+En ServicioUsuario tenemos la función registrar_usuario que usa otra función verificar_usuario_bd, donde solo se hace la consulta en la base de datos, y en el servicio está la lógica.
 
-    #Configuración para SQLAlchemy
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Promundial1?@localhost/cronogramadb'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+```python
+def verificar_usuario_bd(usuario):
+    usuario_db = db.session.query(Usuario).filter_by(nombres=usuario.nombres, apellidos=usuario.apellidos, email=usuario.email).first()
+    return usuario_db is None
+```
 
-    db.init_app(app)
+### Open-closed principle (OCP):
+Flask permite el uso de blueprints, así podemos agregar más rutas sin la necesidad de cambiar los otros archivos.
 
-    app.register_blueprint(rutas)
-
-    return app
-
-# Estructura de Código Fuente
-
-Se mantuvo el orden que se planteo en laboratorios anteriores, el código en módulos y paquetes claros y coherentes, siguiendo las convenciones de estructura de proyectos de Flask aunque todabia hay muchas cosas por hacer y unir con las partes de mis compañeros.
-
-# LAB 10
-
-# Principios SOLID aplicados
-# Single-responsibility principle (SRP)
-
-Cada módulo y clase en nuestro proyecto tiene una única responsabilidad. Por ejemplo, create_app se encarga solo de crear y configurar la aplicación Flask, y initialize_database se encarga de inicializar la base de datos.
-Tambien ServicioActividad.py se encarga exclusivamente de la lógica relacionada con las actividades: 
-
-from utils.repositorios.sqlAlchemy.ActividadRepositorioImpl import agregar_actividad
-from utils.repositorios.sqlAlchemy.conexionBd import db
-
-def registrar_actividad(actividad):
-    agregar_actividad(actividad)
-    return "guardando actividad"
-
-
-# Open-closed principle (OCP)
-
-Actualmente el codigo esta organizado para ser extendido sin modificar el código existente. Por ejemplo, al usar Blueprints en Flask, podemos agregar nuevas rutas sin modificar el código existente:
-
+```python
+app.register_blueprint(registrarse, url_prefix='/registrarse')
+app.register_blueprint(inicio_sesion, url_prefix='/login')
+app.register_blueprint(administrador, url_prefix='/admin')
+app.register_blueprint(autor, url_prefix='/autor')
 app.register_blueprint(home, url_prefix='/')
+```
+### Dependency inversion principle (DIP):
+Tenemos una instancia de la base de datos y solo pasamos una clase, lo que permite usar otra base de datos solo modificando este código.
 
-Tambien hay archivos como cronograma.py, noticias.py que mantienen una separacion clara para poder definir y manipular la BD, si se deseara añadir nuevas tablas o configuraciones solo se crea mas archivos pero siempre dentro de Repositorios/SQLAlchemy..
+```python
+from flask_sqlalchemy import SQLAlchemy
 
-# Dependency inversion principle (DIP)
-
-Se puede decir qe utilizamos este principio al utilizar inyección de dependencias para la configuración y creación de la base de datos.
-Ejemplo:
+db = SQLAlchemy()
 
 from utils.repositorios.sqlAlchemy.conexionBd import db
+from models.entidades.Usuario import Usuario
 
+def agregar_usuario_bd(usuario):
+    db.session.add(usuario)
+    db.session.commit()
 
-# Uso de SonarLint
+def verificar_usuario_bd(usuario):
+    usuario_db = db.session.query(Usuario).filter_by(nombres=usuario.nombres, apellidos=usuario.apellidos, email=usuario.email).first()
+    return usuario_db is None
+```
 
-SonarLint me arrojaba una vulnerabilidad que es debido a que la contraseña de mi base de datos estaba expuesta, con mi grupo optamos todos por usar variables de entorno y lo solucionamos ya que era un problema general.
+## Conceptos DDD Aplicados
+### Descripción y Fragmento de Código (evidencia)
+#### Entidades:
+
+```python
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombres = db.Column(db.String(80))
+    apellidos = db.Column(db.String(80))
+    email = db.Column(db.String(120))
+    contrasenia = db.Column(db.String(120))
+
+    def __init__(self, nombres, apellidos, email, contrasenia):
+        self.nombres = nombres
+        self.apellidos = apellidos
+        self.email = email
+        self.contrasenia = contrasenia
+```
+
+#### Servicios de Dominio:
+
+```python
+def registrar_usuario(usuario):
+    if not verificar_usuario_bd(usuario):
+        return False
+
+    agregar_usuario_bd(usuario)
+    return True
+```    
+#### Repositorios:
+
+```python
+def agregar_usuario_bd(usuario):
+    db.session.add(usuario)
+    db.session.commit()
+
+def verificar_usuario_bd(usuario):
+    usuario_db = db.session.query(Usuario).filter_by(nombres=usuario.nombres, apellidos=usuario.apellidos, email=usuario.email).first()
+    return usuario_db is None
+```
+    
+#### Arquitectura en Capas:
+El sistema sigue una arquitectura en capas que incluye Presentación, Servicios, Dominio y Repositorios, asegurando una separación clara de responsabilidades y facilitando el mantenimiento y escalabilidad del sistema.
