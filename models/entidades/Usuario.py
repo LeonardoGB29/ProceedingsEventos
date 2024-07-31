@@ -14,12 +14,6 @@ class Usuario(db.Model):
         self.apellidos = apellidos
         self.email = email
         self.contrasenia = contrasenia
-<<<<<<< HEAD
-
-    def registrarse_evento(cls):
-        return
-    
-=======
     
     @classmethod
     def buscar_por_email(cls, email):
@@ -27,4 +21,3 @@ class Usuario(db.Model):
     
     def verificar_contrasenia(self, contrasenia):
         return self.contrasenia == contrasenia
->>>>>>> 366c41f91baf0e2551f251ddded71252ba5c5df0
