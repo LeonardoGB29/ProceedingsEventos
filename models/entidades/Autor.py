@@ -3,11 +3,11 @@
 
 class Autor:
     def __init__(self):
-        pass
+        return
 
     def subir_documento(self, ):
-        pass
+        return
 
     def editar_documento(self, ):
-        pass
+        return
 

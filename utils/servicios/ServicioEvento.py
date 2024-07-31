@@ -1,5 +1,7 @@
-#!/usr/bin/python
-#-*- coding: utf-8 -*-
+from utils.repositorios.sqlAlchemy.EventoRepositorioImpl import agregar_evento
+from utils.repositorios.sqlAlchemy.conexionBd import db
 
-class ServicioEvento:
-    pass
+def registrar_evento(evento):
+    agregar_evento(evento)
+    
+    return "guardando evento"

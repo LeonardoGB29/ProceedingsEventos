@@ -1,6 +1,5 @@
 from inicio import app
-from utils.servicios.ServicioUsuario import db
-
+from utils.repositorios.sqlAlchemy.conexionBd import db
 
 with app.app_context():
     db.create_all()

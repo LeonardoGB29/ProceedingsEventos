@@ -3,8 +3,8 @@
 
 class IDocumentoRepositorio:
     def __init__(self):
-        pass
+        return
 
     def adicionar_documento(self, ):
-        pass
+        return
 

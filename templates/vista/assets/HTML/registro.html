@@ -1,14 +1,32 @@
-
-<div>
-    <h2>Registro</h2>
-        <form action="/registrarse" method="POST">
-            <input type="text" name="nombres" placeholder="Nombres" ><br>
-            <input type="text" name="apellidos" placeholder="Apellidos" ><br>
-            <input type="email" name="email" placeholder="Email" ><br>
-            <input type="password" name="contrasenia" placeholder="Contraseña" ><br>
-            
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/templates/vista/assets/CSS/style.css">
+    <title>Registro</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for category, message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
+  {% endwith %}
+    <div class="container">
+        <h2>Registro</h2>
+        <form action="/enviarRegistro" method="POST">
+            <input type="text" name="nombres" placeholder="Nombres"><br>
+            <input type="text" name="apellidos" placeholder="Apellidos"><br>
+            <input type="email" name="email" placeholder="Email"><br>
+            <input type="password" name="contrasenia" placeholder="Contraseña"><br>
             <button>Registrarse</button>
-            
         </form>
-
-</div>
+    </div>
+</body>
+</html>

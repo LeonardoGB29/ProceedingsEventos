@@ -1,24 +1,25 @@
-from flask import Blueprint, render_template, request
+# routes/controlador/registrarse.py
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.entidades.Usuario import Usuario
-from utils.servicios.ServicioUsuario import db
+from utils.servicios.ServicioUsuario import registrar_usuario
 
-registrarse = Blueprint('registrarse', __name__, template_folder='')
+registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')
 
 @registrarse.route('/')
-def home():
+def register():
     return render_template('vista/assets/HTML/registro.html')
 
-@registrarse.route('/registrarse', methods=['POST'])
-
+@registrarse.route('/enviarRegistro', methods=['POST'])
 def registro():
     nombres = request.form['nombres']
     apellidos = request.form['apellidos']
     email = request.form['email']
-    # contrasenia = "123"
+    contrasenia = request.form['contrasenia']
 
-    nuevo_usuario = Usuario(nombres, apellidos, email)
+    nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
 
-    db.session.add(nuevo_usuario)
-    db.session.commit()
-
-    return "guardando usuario"
+    if registrar_usuario(nuevo_usuario):
+        return redirect(url_for('inicio_sesion.login'))
+    else:
+        flash('El usuario ya existe')
+        return redirect(url_for('registrarse.register'))
