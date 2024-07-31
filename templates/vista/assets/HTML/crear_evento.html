@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/templates/vista/assets/CSS/style.css">
+    <title>Crear Evento</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Crear Evento</h2>
+        <form action="{{ url_for('administrador.crear_evento') }}" method="POST">
+            <input type="text" name="nombre" placeholder="Nombre" required><br>
+            <input type="date" name="fecha" placeholder="Fecha" required><br>
+            <input type="text" name="edicion" placeholder="Edición" required><br>
+            <button type="submit">Crear Evento</button>
+        </form>
+    </div>
+</body>
+</html>
