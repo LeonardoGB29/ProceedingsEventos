@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="/templates/vista/assets/CSS/style.css">
+</head>
+<body>
+    <header>
+        <h1>Perfil de Usuario</h1>
+    </header>
+    <main>
+        <section class="perfil">
+            <div class="foto-perfil">
+                <img src="/path/to/profile/picture.jpg" alt="Foto de Perfil">
+            </div>
+            <div class="informacion-personal">
+                <h2>{{ usuario.nombres }} {{ usuario.apellidos }}</h2>
+                <p><strong>Email:</strong> {{ usuario.email }}</p>
+                <p><strong>Fecha de Nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
+                <p><strong>Ubicación:</strong> {{ usuario.nacionalidad }}</p>
+            </div>
+        </section>
+    </section>
+    <section class="intereses">
+        <h2>Intereses</h2>
+        <ul>
+            <li>Interés 1</li>
+            <li>Interés 2</li>
+            <li>Interés 3</li>
+            <li>Interés 4</li>
+        </ul>
+    </section>
+    </main>
+</body>
+</html>

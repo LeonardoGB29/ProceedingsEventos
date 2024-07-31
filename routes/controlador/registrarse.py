@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from models.entidades.Usuario import Usuario
 from utils.servicios.ServicioUsuario import registrar_usuario
+from utils.repositorios.sqlAlchemy.conexionBd import db
+from werkzeug.security import generate_password_hash
 
 registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')
 
@@ -14,7 +16,7 @@ def registro():
         nombres = request.form['nombres'].strip()
         apellidos = request.form['apellidos'].strip()
         email = request.form['email'].strip()
-        contrasenia = request.form['contrasenia'].strip()
+        contrasenia = generate_password_hash(request.form['contrasenia'].strip())
         
 
         if not (nombres and apellidos and email and contrasenia):
@@ -29,11 +31,11 @@ def registro():
         nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
 
         if registrar_usuario(nuevo_usuario):
-            flash('Registro exitoso, por favor inicie sesión.')
-            return redirect(url_for('inicio_sesion.login'))
+            session['usuario_id'] = nuevo_usuario.id
+            return redirect(url_for('home.home_page'))
         else:
-            flash('El usuario ya existe.')
-            return redirect(url_for('registrarse.home_register'))
+            flash('El usuario ya existe')
+            return redirect(url_for('registrarse.register'))
 
     except Exception as e:
 

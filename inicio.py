@@ -1,6 +1,7 @@
 import os
 from flask import Flask, send_from_directory
 from routes.controlador.home import home
+from routes.controlador.perfil import perfil
 from routes.controlador.inicioSesion import inicio_sesion
 from routes.controlador.registrarse import registrarse
 from routes.controlador.administrador import administrador
@@ -28,8 +29,11 @@ app.register_blueprint(inicio_sesion, url_prefix='/login')
 app.register_blueprint(administrador, url_prefix='/admin')
 app.register_blueprint(autor, url_prefix='/autor')
 app.register_blueprint(home, url_prefix='/')
+app.register_blueprint(perfil, url_prefix='/perfil')
 
-
-@app.route('/templates/vista/assets/CSS/<path:filename>')
+@app.route('/static/<path:filename>')
 def custom_static(filename):
     return send_from_directory('templates/vista/assets/CSS', filename)
+
+if __name__ == '__main__':
+    app.run(debug=True)
