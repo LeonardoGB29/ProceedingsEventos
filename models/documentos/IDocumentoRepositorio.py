@@ -5,6 +5,6 @@ class IDocumentoRepositorio:
     def __init__(self):
         return
 
-    def adicionar_documento(self, ):
-        return
+    def adicionar_documento(self, documento):
 
+        return

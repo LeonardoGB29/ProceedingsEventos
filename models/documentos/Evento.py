@@ -5,6 +5,7 @@ class Evento(db.Model):
     nombre = db.Column(db.String(80), nullable=False)
     fecha = db.Column(db.Date, nullable=False)
     edicion = db.Column(db.String(50), nullable=False)
+    #documentos = db.relationship ???
 
     def __init__(self, nombre, fecha, edicion):
         self.nombre = nombre

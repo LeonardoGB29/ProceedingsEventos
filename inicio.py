@@ -3,8 +3,9 @@ from flask import Flask, send_from_directory
 from routes.controlador.home import home
 from routes.controlador.inicioSesion import inicio_sesion
 from routes.controlador.registrarse import registrarse
+from routes.controlador.administrador import administrador
+from routes.controlador.autor import autor
 from utils.repositorios.sqlAlchemy.conexionBd import db
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,11 +23,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_password}@{db_ho
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
-app.register_blueprint(registrarse, url_prefix='/')
+app.register_blueprint(registrarse, url_prefix='/registrarse')
 app.register_blueprint(inicio_sesion, url_prefix='/login')
-app.register_blueprint(home, url_prefix='/home')
+app.register_blueprint(administrador, url_prefix='/admin')
+app.register_blueprint(autor, url_prefix='/autor')
+app.register_blueprint(home, url_prefix='/')
 
-# ruta css???
+
 @app.route('/templates/vista/assets/CSS/<path:filename>')
 def custom_static(filename):
     return send_from_directory('templates/vista/assets/CSS', filename)
