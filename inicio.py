@@ -6,7 +6,6 @@ from routes.controlador.registrarse import registrarse
 from routes.controlador.administrador import administrador
 from routes.controlador.autor import autor
 from utils.repositorios.sqlAlchemy.conexionBd import db
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,7 +30,7 @@ app.register_blueprint(inicio_sesion, url_prefix='/login')
 app.register_blueprint(administrador, url_prefix='/admin')
 app.register_blueprint(autor, url_prefix='/autor')
 
-# ruta css???
+
 @app.route('/templates/vista/assets/CSS/<path:filename>')
 def custom_static(filename):
     return send_from_directory('templates/vista/assets/CSS', filename)
