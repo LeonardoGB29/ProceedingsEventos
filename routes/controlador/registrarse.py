@@ -1,7 +1,8 @@
-# routes/controlador/registrarse.py
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from models.entidades.Usuario import Usuario
 from utils.servicios.ServicioUsuario import registrar_usuario
+from utils.repositorios.sqlAlchemy.conexionBd import db
+from werkzeug.security import generate_password_hash
 
 registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')
 
@@ -14,12 +15,13 @@ def registro():
     nombres = request.form['nombres']
     apellidos = request.form['apellidos']
     email = request.form['email']
-    contrasenia = request.form['contrasenia']
+    contrasenia = generate_password_hash(request.form['contrasenia'])
 
-    nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
+    nuevo_usuario = Usuario(nombres=nombres, apellidos=apellidos, email=email, contrasenia=contrasenia)
 
     if registrar_usuario(nuevo_usuario):
-        return redirect(url_for('inicio_sesion.login'))
+        session['usuario_id'] = nuevo_usuario.id
+        return redirect(url_for('home.home_page'))
     else:
         flash('El usuario ya existe')
         return redirect(url_for('registrarse.register'))
