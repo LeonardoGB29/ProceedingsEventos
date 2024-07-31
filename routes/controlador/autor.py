@@ -6,11 +6,6 @@ from utils.repositorios.sqlAlchemy.conexionBd import db
 
 autor = Blueprint('autor', __name__, template_folder='../templates/vista/HTML')
 
-@autor.route('/subir_documento', methods=['GET'])
-def subir_documento_form():
-    eventos = Evento.query.all()
-    return render_template('vista/assets/HTML/subir_documento.html', eventos=eventos)
-
 @autor.route('/subir_documento', methods=['POST'])
 def subir_documento():
     resumen = request.form['resumen']
@@ -23,3 +18,8 @@ def subir_documento():
     db.session.commit()
     flash('Documento subido exitosamente', 'success')
     return redirect(url_for('autor.subir_documento_form'))
+
+@autor.route('/subir_documento_form', methods=['GET'])
+def subir_documento_form():
+    eventos = Evento.query.all()
+    return render_template('vista/assets/HTML/subir_documento.html', eventos=eventos)
