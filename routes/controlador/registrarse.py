@@ -20,11 +20,11 @@ def registro():
         
         if not (nombres and apellidos and email and contrasenia):
             flash('Todos los campos son requeridos.')
-            return redirect(url_for('registrarse.home_register'))
+            return redirect(url_for('home_register'))
 
         if '@' not in email or '.' not in email:
             flash('El formato del email no es válido.')
-            return redirect(url_for('registrarse.home_register'))
+            return redirect(url_for('home_register'))
 
         nuevo_usuario = FabricaUsuario.crear_usuario(nombres, apellidos, email, contrasenia)
 
