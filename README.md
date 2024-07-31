@@ -1,70 +1,38 @@
-# ProcedingsEventos
+# Laboratorio 11: Estilos de Programación
 
-github: https://github.com/KevinRodriguezLima/ProceedingsEventos
-# LAB 9 Y 10(ABAJO)
+# Estilos de Programación Implementados
 
-# Acividad Laboratorio 9( CLEAN CODE )
+## Error/Exception Handling
+Implementé el manejo de errores y excepciones para gestionar fallos en las operaciones de la base de datos, aumentando la robustez de la aplicación.
 
-# Prácticas Aplicadas
+**Ejemplo:**
 
-# Nombres
+```python
+try:
+    db.session.add(nuevo_documento)
+    db.session.commit()
+except Exception as e:
+    db.session.rollback()
+    raise e
+```
 
-Se utilizo nombres coherentes y descriptivos para funciones y variables. Por ejemplo: 
-@rutas.route('/')
-def home():
-    cronograma = Cronograma.query.all()
-    noticias = Noticias.query.all()
-    return render_template('inicio.html', cronograma=cronograma, noticias=noticias)
+## Persistent-Tables
+Aseguré que todas las operaciones con la base de datos se manejen coherentemente usando transacciones, encapsulando estas operaciones dentro de los modelos.
 
-`def home`se encarga de manejar la lógica para mostrar la página de `inicio`, dentro de esta función se obtienen los datos necesarios (cronogramas y noticias) de la base de datos para poder mostrarlos en la interfaz de usuario.
+```python
+@staticmethod
+def crear_documento(resumen, datos, conclusion, num_pag, evento_id):
+    try:
+        nuevo_documento = Documento(resumen, datos, conclusion, num_pag, evento_id)
+        db.session.add(nuevo_documento)
+        db.session.commit()
+        return nuevo_documento
+    except Exception as e:
+        db.session.rollback()
+        raise e
+```
 
-#### Funciones
-
-Se dividió el código en funciones pequeñas y enfocadas. Por ejemplo, la función `initialize_database` en `inicio.py` se encarga únicamente de inicializar la base de datos.
-
-def initialize_database():
-    with app.app_context():
-        db.create_all()
+## Trinity (MVC)
+Aplicando el patrón Trinity (Modelo-Vista-Controlador), separé las responsabilidades entre Modelos, Vistas y Controladores para mejorar la modularidad y mantenibilidad del proyecto. Los Modelos gestionan la lógica de negocio y la interacción con la base de datos, las Vistas se encargan de la presentación y los Controladores manejan las solicitudes del usuario, delegando la lógica de negocio a los Modelos.
 
 
-#### Comentarios
-
-Se agrego comentarios descriptivos  a funciones y rutas para mejorar la comprensión del código. Por ejemplo:
-
-def create_app():
-    
-    #Función para crear y configurar la aplicación Flask
-    app = Flask(__name__, template_folder='Vista/Assets/HTML')
-
-    #Configuración para SQLAlchemy
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Promundial1?@localhost/cronogramadb'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.init_app(app)
-
-    app.register_blueprint(rutas)
-
-    return app
-
-# Estructura de Código Fuente
-
-Se mantuvo el orden que se planteo en laboratorios anteriores, el código en módulos y paquetes claros y coherentes, siguiendo las convenciones de estructura de proyectos de Flask aunque todabia hay muchas cosas por hacer y unir con las partes de mis compañeros.
-
-# LAB 10
-
-# Principios SOLID aplicados
-# Single-responsibility principle (SRP)
-
-Cada módulo y clase en nuestro proyecto tiene una única responsabilidad. Por ejemplo, create_app se encarga solo de crear y configurar la aplicación Flask, y initialize_database se encarga de inicializar la base de datos.
-
-# Open-closed principle (OCP)
-
-Actualmente el codigo esta organizado para ser extendido sin modificar el código existente. Por ejemplo, al usar Blueprints en Flask, podemos agregar nuevas rutas sin modificar el código existente, tambien hay archivos como cronograma.py, noticias.py que mantienen una separacion clara para poder definir y manipular la BD, si se deseara añadir nuevas tablas o configuraciones solo se crea mas archivos pero siempre dentro de Repositorios/SQLAlchemy..
-
-# Dependency inversion principle (DIP)
-
-Se puede decir qe utilizamos este principio al utilizar inyección de dependencias para la configuración y creación de la base de datos.
-
-# Uso de SonarLint
-
-SonarLint me arroja una vulnerabilidad que es debido a que la contraseña de mi base de datos esta expuesta, me sugirio otra opcion pero la cual todavia no entendi, estoy trabajando para cambiarlo y que sea secreta.
