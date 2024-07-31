@@ -31,7 +31,8 @@ app.register_blueprint(autor, url_prefix='/autor')
 app.register_blueprint(home, url_prefix='/')
 app.register_blueprint(perfil, url_prefix='/perfil')
 
-@app.route('/static/<path:filename>')
+
+@app.route('/templates/vista/assets/CSS/<path:filename>')
 def custom_static(filename):
     return send_from_directory('templates/vista/assets/CSS', filename)
 

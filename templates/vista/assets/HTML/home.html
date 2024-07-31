@@ -24,7 +24,7 @@
         </div>
     </nav>
     <div class="container mt-5">
-        <h1>Actividades</h1>
+        <h1>Eventos</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -35,12 +35,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for actividad in cronograma %}
+                {% for evento in eventos %}
                 <tr>
-                    <td>{{ actividad.nombre }}</td>
-                    <td>{{ actividad.descripcion }}</td>
-                    <td>{{ actividad.autores }}</td>
-                    <td>{{ actividad.responsables }}</td>
+                    <td>{{ evento.nombre }}</td>
+                    <td>{{ evento.descripcion }}</td>
+                    <td>{{ evento.autores }}</td>
+                    <td>{{ evento.responsables }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -6,7 +6,7 @@ perfil = Blueprint('perfil', __name__)
 @perfil.route('/')
 def mostrar_perfil():
     if 'usuario_id' not in session:
-        return redirect(url_for('inicio_sesion_bp.login'))
+        return redirect(url_for('inicio_sesion.login'))
     
     usuario_id = session['usuario_id']
     usuario = Usuario.query.get(usuario_id)

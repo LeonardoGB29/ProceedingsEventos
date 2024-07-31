@@ -1,0 +1,701 @@
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 58c8cf5..fdd12bc 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -1,124 +1,181 @@[m
+[31m-github: https://github.com/KevinRodriguezLima/ProceedingsEventos[m
+[31m-# LAB 9, 10 (ABAJO)[m
+[32m+[m[32m# ProceedingsEventos[m
+ [m
+[31m-# LAB 11[m
+[31m-# Acividad Laboratorio 11: Estilos de Programación[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32m# LAB 9[m
+[32m+[m[32m=======[m
+[32m+[m[32m# Laboratorio 9(CLEAN CODE)[m
+[32m+[m[32mPracticas Aplicadas[m
+[32m+[m[32m1. Uso Consistente de Estilo[m
+ [m
+[31m-# Estilos aplicados[m
+[31m-## Estilo de Programación: Things[m
+[31m-Lo utilizo al encapsular datos y comportamientos en clases. Por ejemplo en models/Actividad.py : [m
+[32m+[m[32mSe usa adecuadamente las convenciones del estilo del lenguaje(PEP 8), por ejemplo en las clases del dominio, como nombres, atributos y sus metodos[m
+[32m+[m[32m>>>>>>> 366c41f91baf0e2551f251ddded71252ba5c5df0[m
+ [m
+[31m-class Actividad(db.Model):[m
+[31m-    id = db.Column(db.Integer, primary_key=True)[m
+[31m-    nombre = db.Column(db.String(100))[m
+[31m-    descripcion = db.Column(db.String(100))[m
+[31m-    autores = db.Column(db.String(100))[m
+[31m-    responsables = db.Column(db.String(100))[m
+[32m+[m[32m2. Funciones Pequeñas y Concisas[m
+ [m
+[31m-    def __init__(self, nombre, descripcion, autores, responsables):[m
+[31m-        self.nombre = nombre[m
+[31m-        self.descripcion = descripcion[m
+[31m-        self.autores = autores[m
+[31m-        self.responsables = responsables[m
+[32m+[m[32mFunciones dentro de registrarse.py, son entendibles y cada una hace cosas diferentes.[m
+[32m+[m[32m```python[m
+ [m
+[31m-## Estilo de Programación: Persistent-Tables[m
+[31m-Tambien se puede decir que he utilizado el estilo de programación Persistent-Tables para gestionar y modelar los datos mediante el uso de tablas, ejemplo en models/Noticias.py:[m
+[32m+[m[32m<<<<<<< HEAD[m
+[32m+[m[32mSe utiliza nombres coherentes y descriptivos para funciones y variables[m
+ [m
+[31m-from utils.repositorios.sqlAlchemy.conexionBd import db[m
+[32m+[m[32m@registrarse.route('/enviarRegistro', methods=['POST'])[m
+[32m+[m[32mdef registro():[m
+[32m+[m[32m    nombres = request.form['nombres'][m
+[32m+[m[32m    apellidos = request.form['apellidos'][m
+[32m+[m[32m    email = request.form['email'][m
+[32m+[m[32m    contrasenia = request.form['contrasenia'][m
+ [m
+[31m-class Noticias(db.Model):[m
+[31m-    id = db.Column(db.Integer, primary_key=True)[m
+[31m-    titulo = db.Column(db.String(100))[m
+[31m-    contenido = db.Column(db.Text)[m
+[31m-    fecha = db.Column(db.Date)[m
+[32m+[m[32m    nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)[m
+ [m
+[31m-    def __init__(self, titulo, contenido, fecha):[m
+[31m-        self.titulo = titulo[m
+[31m-        self.contenido = contenido[m
+[31m-        self.fecha = fecha[m
+[32m+[m[32m    # Verificar si el usuario ya existe[m
+[32m+[m[32m    if registrar_usuario(nuevo_usuario):[m
+[32m+[m[32m        return redirect(url_for('inicio_sesion.login'))[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        flash('El usuario ya existe')[m
+[32m+[m[32m        return redirect(url_for('registrarse.register'))[m
+ [m
+[31m-## Estilo de Programación: [m
+[31m-Respecto a lo que tenia que implementar no estoy utilizando otros estilos ya que me toco sobre todo modelado de tablas y hmtl asi como controladores, añadire más codigo o en otras secciones donde se pueda usar otros estilos.[m
+[32m+[m[32m#### Funciones[m
+ [m
+[31m-# Acividad Laboratorio 9( CLEAN CODE )[m
+[32m+[m[32mTenemos la funcion registrar_usuario que verifica en la base de datos si el usuario esta registrado y si no, lo agrega.[m
+ [m
+[31m-# Prácticas Aplicadas[m
+[32m+[m[32mdef registrar_usuario(usuario):[m
+[32m+[m[41m    [m
+[32m+[m[32m    if not verificar_usuario_bd(usuario):[m
+[32m+[m[32m        return False[m
+[32m+[m[41m    [m
+[32m+[m[32m    agregar_usuario_bd(usuario)[m
+[32m+[m[32m    return True[m
+ [m
+[31m-# Nombres[m
+ [m
+[31m-Se utilizo nombres coherentes y descriptivos para funciones y variables. Por ejemplo: [m
+[31m-@rutas.route('/')[m
+[31m-def home():[m
+[31m-    cronograma = Cronograma.query.all()[m
+[31m-    noticias = Noticias.query.all()[m
+[31m-    return render_template('inicio.html', cronograma=cronograma, noticias=noticias)[m
+[32m+[m[32m# Estructura de Código Fuente[m
+ [m
+[31m-`def home`se encarga de manejar la lógica para mostrar la página de `inicio`, dentro de esta función se obtienen los datos necesarios (cronogramas y noticias) de la base de datos para poder mostrarlos en la interfaz de usuario.[m
+[32m+[m[32mSe mantiene la estructura de un proyecto en Flask, mantendiendo la arquitectura propuesta.[m
+ [m
+[31m-#### Funciones[m
+[32m+[m[32m# LAB 10[m
+ [m
+[31m-Se dividió el código en funciones pequeñas y enfocadas. Por ejemplo, la función `initialize_database` en `inicio.py` se encarga únicamente de inicializar la base de datos.[m
+[32m+[m[32m# Single-responsibility principle (SRP)[m
+ [m
+[31m-def initialize_database():[m
+[31m-    with app.app_context():[m
+[31m-        db.create_all()[m
+[32m+[m[32mSe dividió el código en funciones modulares.[m
+ [m
+[32m+[m[32mdef registrar_usuario(usuario):[m
+[32m+[m[41m    [m
+[32m+[m[32m    if not verificar_usuario_bd(usuario):[m
+[32m+[m[32m        return False[m
+[32m+[m[41m    [m
+[32m+[m[32m    agregar_usuario_bd(usuario)[m
+[32m+[m[32m    return True[m
+ [m
+[31m-#### Comentarios[m
+[32m+[m[32mEn ServicioUsuario tenemos la funcion registrar usuario que usa otra funcion verificar_usuario_bd, donde solo hace la consulta en la base de datos, y en el servicio esta la logica.[m
+ [m
+[31m-Se agrego comentarios descriptivos  a funciones y rutas para mejorar la comprensión del código. Por ejemplo:[m
+[32m+[m[32mdef verificar_usuario_bd(usuario):[m
+[32m+[m[32m    usuario_db = db.session.query(Usuario).filter_by(nombres=usuario.nombres, apellidos=usuario.apellidos, email=usuario.email).first()[m
+[32m+[m[32m    return usuario_db is None[m
+ [m
+[31m-def create_app():[m
+[31m-    [m
+[31m-    #Función para crear y configurar la aplicación Flask[m
+[31m-    app = Flask(__name__, template_folder='Vista/Assets/HTML')[m
+[32m+[m[32m# Open-closed principle (OCP)[m
+ [m
+[31m-    #Configuración para SQLAlchemy[m
+[31m-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Promundial1?@localhost/cronogramadb'[m
+[31m-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False[m
+[32m+[m[32mFlask nos permite el uso de blueprints, asi podemos agregar mas rutas sin la necesidad de cambiar los otros archivos[m
+ [m
+[31m-    db.init_app(app)[m
+[32m+[m[32mapp.register_blueprint(registrarse, url_prefix='/registrarse')[m
+[32m+[m[32mapp.register_blueprint(inicio_sesion, url_prefix='/login')[m
+[32m+[m[32mapp.register_blueprint(administrador, url_prefix='/admin')[m
+[32m+[m[32mapp.register_blueprint(autor, url_prefix='/autor')[m
+[32m+[m[32mapp.register_blueprint(home, url_prefix='/')[m
+ [m
+[31m-    app.register_blueprint(rutas)[m
+[32m+[m[32m# Dependency inversion principle (DIP)[m
+ [m
+[31m-    return app[m
+[32m+[m[32mVemos que solo tenemos una instancia de la base de datos, y lo unico que pasamos es una clase, asi que podemos usar otra base de datos solo modificando este codigo[m
+ [m
+[31m-# Estructura de Código Fuente[m
+[32m+[m[32mfrom flask_sqlalchemy import SQLAlchemy[m
+ [m
+[31m-Se mantuvo el orden que se planteo en laboratorios anteriores, el código en módulos y paquetes claros y coherentes, siguiendo las convenciones de estructura de proyectos de Flask aunque todabia hay muchas cosas por hacer y unir con las partes de mis compañeros.[m
+[32m+[m[32mdb = SQLAlchemy()[m
+ [m
+[31m-# LAB 10[m
+[32m+[m[32mfrom utils.repositorios.sqlAlchemy.conexionBd import db[m
+[32m+[m[32mfrom models.entidades.Usuario import Usuario[m
+ [m
+[31m-# Principios SOLID aplicados[m
+[31m-# Single-responsibility principle (SRP)[m
+[32m+[m[32mdef agregar_usuario_bd(usuario):[m
+[32m+[m[32m    db.session.add(usuario)[m
+[32m+[m[32m    db.session.commit()[m
+ [m
+[31m-Cada módulo y clase en nuestro proyecto tiene una única responsabilidad. Por ejemplo, create_app se encarga solo de crear y configurar la aplicación Flask, y initialize_database se encarga de inicializar la base de datos.[m
+[31m-Tambien ServicioActividad.py se encarga exclusivamente de la lógica relacionada con las actividades: [m
+[32m+[m[32mdef verificar_usuario_bd(usuario):[m
+[32m+[m[32m    usuario_db = db.session.query(Usuario).filter_by(nombres=usuario.nombres, apellidos=usuario.apellidos, email=usuario.email).first()[m
+[32m+[m[32m    return usuario_db is None[m
+ [m
+[31m-from utils.repositorios.sqlAlchemy.ActividadRepositorioImpl import agregar_actividad[m
+[31m-from utils.repositorios.sqlAlchemy.conexionBd import db[m
+ [m
+[31m-def registrar_actividad(actividad):[m
+[31m-    agregar_actividad(actividad)[m
+[31m-    return "guardando actividad"[m
+[32m+[m[32m# LAB 11[m
+ [m
+[32m+[m[32m# Error/Exception Handling[m
+ [m
+[31m-# Open-closed principle (OCP)[m
+[32m+[m[32m@registrarse.route('/enviarRegistro', methods=['POST'])[m
+[32m+[m[32mdef registro():[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        nombres = request.form['nombres'].strip()[m
+[32m+[m[32m        apellidos = request.form['apellidos'].strip()[m
+[32m+[m[32m        email = request.form['email'].strip()[m
+[32m+[m[32m        contrasenia = request.form['contrasenia'].strip()[m
+[32m+[m[41m        [m
+[32m+[m[32m        ...[m
+ [m
+[31m-Actualmente el codigo esta organizado para ser extendido sin modificar el código existente. Por ejemplo, al usar Blueprints en Flask, podemos agregar nuevas rutas sin modificar el código existente:[m
+[32m+[m[32m        nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)[m
+ [m
+[31m-app.register_blueprint(home, url_prefix='/')[m
+[32m+[m[32m        if registrar_usuario(nuevo_usuario):[m
+[32m+[m[32m            flash('Registro exitoso, por favor inicie sesión.')[m
+[32m+[m[32m            return redirect(url_for('inicio_sesion.login'))[m
+[32m+[m[32m        else:[m
+[32m+[m[32m            flash('El usuario ya existe.')[m
+[32m+[m[32m            return redirect(url_for('registrarse.home_register'))[m
+ [m
+[31m-Tambien hay archivos como cronograma.py, noticias.py que mantienen una separacion clara para poder definir y manipular la BD, si se deseara añadir nuevas tablas o configuraciones solo se crea mas archivos pero siempre dentro de Repositorios/SQLAlchemy..[m
+[32m+[m[32m    except Exception as e:[m
+ [m
+[31m-# Dependency inversion principle (DIP)[m
+[32m+[m[32m        flash(f'Ocurrió un error: {str(e)}')[m
+[32m+[m[32m        return redirect(url_for('registrarse.home_register'))[m
+ [m
+[31m-Se puede decir qe utilizamos este principio al utilizar inyección de dependencias para la configuración y creación de la base de datos.[m
+[31m-Ejemplo:[m
+[32m+[m[32m# Things[m
+ [m
+[31m-from utils.repositorios.sqlAlchemy.conexionBd import db[m
+[32m+[m[32mclass Usuario(db.Model):[m
+[32m+[m[32m    id = db.Column(db.Integer, primary_key=True)[m
+[32m+[m[32m    nombres = db.Column(db.String(80))[m
+[32m+[m[32m    apellidos = db.Column(db.String(80))[m
+[32m+[m[32m    email = db.Column(db.String(120))[m
+[32m+[m[32m    contrasenia = db.Column(db.String(120))[m
+[32m+[m
+[32m+[m[32m    def __init__(self, nombres, apellidos, email,contrasenia):[m
+[32m+[m[32m        self.nombres = nombres[m
+[32m+[m[32m        self.apellidos = apellidos[m
+[32m+[m[32m        self.email = email[m
+[32m+[m[32m        self.contrasenia = contrasenia[m
+[32m+[m
+[32m+[m[32m    def registrarse_evento(cls):[m
+[32m+[m[32m        return[m
+[32m+[m[41m    [m
+[32m+[m[32m# Cookbook[m
+[32m+[m
+[32m+[m[32mLa base de datos se comporta como un singleton[m
+[32m+[m
+[32m+[m[32mfrom flask_sqlalchemy import SQLAlchemy[m
+[32m+[m
+[32m+[m[32mdb = SQLAlchemy()[m
+[32m+[m
+[32m+[m[32m=======[m
+[32m+[m[32m@perfil_bp.route('/perfil/<int:usuario_id>')[m
+[32m+[m[32mdef mostrar_perfil(usuario_id):[m
+[32m+[m[32m    usuario = Usuario.query.get(usuario_id)[m
+[32m+[m[32m    if usuario:[m
+[32m+[m[32m        return render_template('perfil.html', usuario=usuario)[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        return "Usuario no encontrado", 404[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32m## Conflictos[m
+[32m+[m[32m1. hay un conflicto al querer mostrar los datos de la base de datos[m[41m [m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Laboratorio 10(SOLID)[m
+[32m+[m
+[32m+[m[32m1. Single-responsibility principle (SRP)[m
+ [m
+[32m+[m[32mCada modulo y clase en nuestro proyecto tiene una unica responsabilidad. Por ejemplo, index.py se encarga solo de cargar el proyecto.[m
+ [m
+[31m-# Uso de SonarLint[m
+[32m+[m[32m2. Open-closed principle (OCP)[m
+ [m
+[31m-SonarLint me arrojaba una vulnerabilidad que es debido a que la contraseña de mi base de datos estaba expuesta, con mi grupo optamos todos por usar variables de entorno y lo solucionamos ya que era un problema general.[m
+\ No newline at end of file[m
+[32m+[m[32mActualmente el codigo esta organizado para ser extendido sin modificar el codigo existente. Por ejemplo, al usar Blueprints en Flask, podemos agregar nuevas rutas sin modificar el codigo existente.[m
+[32m+[m[32m>>>>>>> 366c41f91baf0e2551f251ddded71252ba5c5df0[m
+[1mdiff --git a/To b/To[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e69de29[m
+[1mdiff --git a/inicio.py b/inicio.py[m
+[1mindex 921b004..2bdcd30 100644[m
+[1m--- a/inicio.py[m
+[1m+++ b/inicio.py[m
+[36m@@ -31,8 +31,7 @@[m [mapp.register_blueprint(autor, url_prefix='/autor')[m
+ app.register_blueprint(home, url_prefix='/')[m
+ app.register_blueprint(perfil, url_prefix='/perfil')[m
+ [m
+[31m-[m
+[31m-@app.route('/templates/vista/assets/CSS/<path:filename>')[m
+[32m+[m[32m@app.route('/static/<path:filename>')[m
+ def custom_static(filename):[m
+     return send_from_directory('templates/vista/assets/CSS', filename)[m
+ [m
+[1mdiff --git a/models/documentos/Documento.py b/models/documentos/Documento.py[m
+[1mindex f40b639..792e26f 100644[m
+[1m--- a/models/documentos/Documento.py[m
+[1m+++ b/models/documentos/Documento.py[m
+[36m@@ -8,7 +8,6 @@[m [mclass Documento(db.Model):[m
+     num_pag = db.Column(db.Integer, nullable=False)[m
+     evento_id = db.Column(db.Integer, db.ForeignKey('evento.id'), nullable=False)[m
+     autores = db.Column(db.String(50), nullable=False)[m
+[31m-    #autores = db.relationship() ???[m
+ [m
+     def __init__(self, resumen, datos, conclusion, num_pag, evento_id):[m
+         self.resumen = resumen[m
+[36m@@ -24,4 +23,15 @@[m [mclass Documento(db.Model):[m
+             "datos": self.datos,[m
+             "conclusion": self.conclusion,[m
+             "num_pag": self.num_pag[m
+[31m-        }[m
+\ No newline at end of file[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m    @staticmethod[m
+[32m+[m[32m    def crear_documento(resumen, datos, conclusion, num_pag, evento_id):[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            nuevo_documento = Documento(resumen, datos, conclusion, num_pag, evento_id)[m
+[32m+[m[32m            db.session.add(nuevo_documento)[m
+[32m+[m[32m            db.session.commit()[m
+[32m+[m[32m            return nuevo_documento[m
+[32m+[m[32m        except Exception as e:[m
+[32m+[m[32m            db.session.rollback()[m
+[32m+[m[32m            raise e[m
+[1mdiff --git a/models/documentos/Evento.py b/models/documentos/Evento.py[m
+[1mindex 27d201f..522f041 100644[m
+[1m--- a/models/documentos/Evento.py[m
+[1m+++ b/models/documentos/Evento.py[m
+[36m@@ -1,24 +1,31 @@[m
+[31m-# models/documentos/Evento.py[m
+ from utils.repositorios.sqlAlchemy.conexionBd import db[m
+ [m
+ class Evento(db.Model):[m
+     id = db.Column(db.Integer, primary_key=True)[m
+[31m-    nombre = db.Column(db.String(100))  # Ajusta el tamaño según sea necesario[m
+[31m-    descripcion = db.Column(db.String(100))[m
+[31m-    autores = db.Column(db.String(100))[m
+[31m-    responsables = db.Column(db.String(100))[m
+[32m+[m[32m    nombre = db.Column(db.String(80), nullable=False)[m
+[32m+[m[32m    fecha = db.Column(db.Date, nullable=False)[m
+[32m+[m[32m    edicion = db.Column(db.String(50), nullable=False)[m
+ [m
+[31m-    def __init__(self, nombre, descripcion, autores, responsables):[m
+[32m+[m[32m    def __init__(self, nombre, fecha, edicion):[m
+         self.nombre = nombre[m
+[31m-        self.descripcion = descripcion[m
+[31m-        self.autores = autores[m
+[31m-        self.responsables = responsables[m
+[32m+[m[32m        self.fecha = fecha[m
+[32m+[m[32m        self.edicion = edicion[m
+ [m
+     def mostrar_evento(self):[m
+         return {[m
+             "id": self.id,[m
+             "nombre": self.nombre,[m
+[31m-            "descripcion": self.descripcion,[m
+[31m-            "autores": self.autores,[m
+[31m-            "responsables": self.responsables[m
+[32m+[m[32m            "fecha": self.fecha,[m
+[32m+[m[32m            "edicion": self.edicion[m
+         }[m
+[32m+[m
+[32m+[m[32m    @staticmethod[m
+[32m+[m[32m    def crear_evento(nombre, fecha, edicion):[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            nuevo_evento = Evento(nombre, fecha, edicion)[m
+[32m+[m[32m            db.session.add(nuevo_evento)[m
+[32m+[m[32m            db.session.commit()[m
+[32m+[m[32m            return nuevo_evento[m
+[32m+[m[32m        except Exception as e:[m
+[32m+[m[32m            db.session.rollback()[m
+[32m+[m[32m            raise e[m
+[1mdiff --git a/models/entidades/FabricaUsuario.py b/models/entidades/FabricaUsuario.py[m
+[1mindex 2e7dcef..6bed8cd 100644[m
+[1m--- a/models/entidades/FabricaUsuario.py[m
+[1m+++ b/models/entidades/FabricaUsuario.py[m
+[36m@@ -1,13 +1,20 @@[m
+ #!/usr/bin/python[m
+ #-*- coding: utf-8 -*-[m
+ [m
+[31m-# FabricaUsuario.py[m
+[31m-from models.entidades.Usuario import Usuario[m
+[31m-from werkzeug.security import generate_password_hash[m
+[31m-[m
+ class FabricaUsuario:[m
+[31m-    @staticmethod[m
+[31m-    def crear_usuario(nombres, apellidos, email, contrasenia):[m
+[31m-        # Aquí puedes agregar lógica adicional, como validaciones o configuraciones por defecto[m
+[31m-        contrasenia_hashed = generate_password_hash(contrasenia)[m
+[31m-        return Usuario(nombres=nombres, apellidos=apellidos, email=email, contrasenia=contrasenia_hashed)[m
+[32m+[m[32m    def __init__(self):[m
+[32m+[m
+[32m+[m[32m        return[m
+[32m+[m
+[32m+[m[32m    def crear_usuario(self, ):[m
+[32m+[m
+[32m+[m[32m        return[m
+[32m+[m
+[32m+[m[32m    def eliminar_usuario(self, ):[m
+[32m+[m
+[32m+[m[32m        return[m
+[32m+[m
+[32m+[m[32m    def actualizar_usuario(self, ):[m
+[32m+[m
+[32m+[m[32m        return[m
+[41m+[m
+[1mdiff --git a/models/entidades/Usuario.py b/models/entidades/Usuario.py[m
+[1mindex 253b632..1277c61 100644[m
+[1m--- a/models/entidades/Usuario.py[m
+[1m+++ b/models/entidades/Usuario.py[m
+[36m@@ -20,4 +20,4 @@[m [mclass Usuario(db.Model):[m
+         return cls.query.filter_by(email=email).first()[m
+     [m
+     def verificar_contrasenia(self, contrasenia):[m
+[31m-        return self.contrasenia == contrasenia[m
+\ No newline at end of file[m
+[32m+[m[32m        return self.contrasenia == contrasenia[m
+[1mdiff --git a/routes/controlador/administrador.py b/routes/controlador/administrador.py[m
+[1mindex 48f77b5..f11b9a8 100644[m
+[1m--- a/routes/controlador/administrador.py[m
+[1m+++ b/routes/controlador/administrador.py[m
+[36m@@ -1,24 +1,24 @@[m
+ from flask import Blueprint, render_template, request, redirect, url_for, flash[m
+ from models.documentos.Evento import Evento[m
+[31m-from utils.repositorios.sqlAlchemy.conexionBd import db[m
+ [m
+ administrador = Blueprint('administrador', __name__, template_folder='../templates/vista/HTML')[m
+ [m
+ @administrador.route('/crear_evento', methods=['POST'])[m
+ def crear_evento():[m
+[31m-    nombre = request.form['nombre'][m
+[31m-    fecha = request.form['fecha'][m
+[31m-    edicion = request.form['edicion'][m
+[31m-    nuevo_evento = Evento(nombre, fecha, edicion)[m
+[31m-    db.session.add(nuevo_evento)[m
+[31m-    db.session.commit()[m
+[31m-    flash('Evento creado exitosamente', 'success')[m
+[31m-    return redirect(url_for('administrador.crear_evento'))[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        nombre = request.form['nombre'][m
+[32m+[m[32m        fecha = request.form['fecha'][m
+[32m+[m[32m        edicion = request.form['edicion'][m
+[32m+[m[32m        nuevo_evento = Evento.crear_evento(nombre, fecha, edicion)[m
+[32m+[m[32m        flash('Evento creado exitosamente', 'success')[m
+[32m+[m[32m    except Exception as e:[m
+[32m+[m[32m        flash(f'Error al crear el evento: {str(e)}', 'error')[m
+[32m+[m[32m    return redirect(url_for('administrador.crear_evento_form'))[m
+ [m
+ @administrador.route('/crear_evento_form', methods=['GET'])[m
+ def crear_evento_form():[m
+     return render_template('vista/assets/HTML/crear_evento.html')[m
+[31m-[m
+[32m+[m[41m    [m
+ [m
+ #@administrador.route('/actua_evento', methods=['GET', 'POST'])[m
+ #def actualizar_evento():[m
+\ No newline at end of file[m
+[1mdiff --git a/routes/controlador/autor.py b/routes/controlador/autor.py[m
+[1mindex 980db71..c35ba32 100644[m
+[1m--- a/routes/controlador/autor.py[m
+[1m+++ b/routes/controlador/autor.py[m
+[36m@@ -1,25 +1,28 @@[m
+ from flask import Blueprint, render_template, request, redirect, url_for, flash[m
+ from models.documentos.Documento import Documento[m
+ from models.documentos.Evento import Evento[m
+[31m-from models.entidades.Autor import Autor[m
+[31m-from utils.repositorios.sqlAlchemy.conexionBd import db[m
+ [m
+ autor = Blueprint('autor', __name__, template_folder='../templates/vista/HTML')[m
+ [m
+ @autor.route('/subir_documento', methods=['POST'])[m
+ def subir_documento():[m
+[31m-    resumen = request.form['resumen'][m
+[31m-    datos = request.form['datos'][m
+[31m-    conclusion = request.form['conclusion'][m
+[31m-    num_pag = request.form['num_pag'][m
+[31m-    evento_id = request.form['evento_id'][m
+[31m-    nuevo_documento = Documento(resumen, datos, conclusion, num_pag, evento_id)[m
+[31m-    db.session.add(nuevo_documento)[m
+[31m-    db.session.commit()[m
+[31m-    flash('Documento subido exitosamente', 'success')[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        resumen = request.form['resumen'][m
+[32m+[m[32m        datos = request.form['datos'][m
+[32m+[m[32m        conclusion = request.form['conclusion'][m
+[32m+[m[32m        num_pag = request.form['num_pag'][m
+[32m+[m[32m        evento_id = request.form['evento_id'][m
+[32m+[m[32m        nuevo_documento = Documento.crear_documento(resumen, datos, conclusion, num_pag, evento_id)[m
+[32m+[m[32m        flash('Documento subido exitosamente', 'success')[m
+[32m+[m[32m    except Exception as e:[m
+[32m+[m[32m        flash(f'Error al subir el documento: {str(e)}', 'error')[m
+     return redirect(url_for('autor.subir_documento_form'))[m
+ [m
+ @autor.route('/subir_documento_form', methods=['GET'])[m
+ def subir_documento_form():[m
+[31m-    eventos = Evento.query.all()[m
+[31m-    return render_template('vista/assets/HTML/subir_documento.html', eventos=eventos)[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        eventos = Evento.query.all()[m
+[32m+[m[32m        return render_template('vista/assets/HTML/subir_documento.html', eventos=eventos)[m
+[32m+[m[32m    except Exception as e:[m
+[32m+[m[32m        flash(f'Error al cargar el formulario: {str(e)}', 'error')[m
+[32m+[m[32m        return redirect(url_for('autor.subir_documento_form'))[m
+[1mdiff --git a/routes/controlador/home.py b/routes/controlador/home.py[m
+[1mindex 7f05741..9c99167 100644[m
+[1m--- a/routes/controlador/home.py[m
+[1m+++ b/routes/controlador/home.py[m
+[36m@@ -1,12 +1,13 @@[m
+ # routes/controlador/home.py[m
+[31m-from flask import Blueprint, render_template[m
+[31m-from models.documentos.Evento import Evento[m
+[32m+[m[32mfrom flask import Blueprint, render_template, request, redirect, url_for, flash[m
+[32m+[m[32mfrom models.documentos.Actividad import Actividad[m
+ from models.documentos.Noticias import Noticias[m
+ [m
+ home = Blueprint('home', __name__, template_folder='../templates/vista/HTML')[m
+ [m
+ @home.route('/')[m
+ def home_page():[m
+[31m-    eventos = Evento.query.all()  # Obtener todos los eventos[m
+[32m+[m[32m    cronograma = Actividad.query.all()[m
+     noticias = Noticias.query.all()[m
+[31m-    return render_template('vista/assets/HTML/home.html', eventos=eventos, noticias=noticias)[m
+[32m+[m[32m    return render_template('vista/assets/HTML/home.html', cronograma=cronograma, noticias=noticias)[m
+[41m+[m
+[1mdiff --git a/routes/controlador/perfil.py b/routes/controlador/perfil.py[m
+[1mindex ed2a7a4..8066e78 100644[m
+[1m--- a/routes/controlador/perfil.py[m
+[1m+++ b/routes/controlador/perfil.py[m
+[36m@@ -6,7 +6,7 @@[m [mperfil = Blueprint('perfil', __name__)[m
+ @perfil.route('/')[m
+ def mostrar_perfil():[m
+     if 'usuario_id' not in session:[m
+[31m-        return redirect(url_for('inicio_sesion.login'))[m
+[32m+[m[32m        return redirect(url_for('inicio_sesion_bp.login'))[m
+     [m
+     usuario_id = session['usuario_id'][m
+     usuario = Usuario.query.get(usuario_id)[m
+[1mdiff --git a/routes/controlador/registrarse.py b/routes/controlador/registrarse.py[m
+[1mindex ff37807..2d52e35 100644[m
+[1m--- a/routes/controlador/registrarse.py[m
+[1m+++ b/routes/controlador/registrarse.py[m
+[36m@@ -1,29 +1,44 @@[m
+[31m-# registrarse.py[m
+ from flask import Blueprint, render_template, request, redirect, url_for, flash, session[m
+[32m+[m[32mfrom models.entidades.Usuario import Usuario[m
+ from utils.servicios.ServicioUsuario import registrar_usuario[m
+ from utils.repositorios.sqlAlchemy.conexionBd import db[m
+[31m-[m
+[31m-from models.entidades.FabricaUsuario import FabricaUsuario  # Importa la fábrica[m
+[32m+[m[32mfrom werkzeug.security import generate_password_hash[m
+ [m
+ registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')[m
+ [m
+ @registrarse.route('/')[m
+[31m-def register():[m
+[32m+[m[32mdef home_register():[m
+     return render_template('vista/assets/HTML/registro.html')[m
+ [m
+ @registrarse.route('/enviarRegistro', methods=['POST'])[m
+ def registro():[m
+[31m-    nombres = request.form['nombres'][m
+[31m-    apellidos = request.form['apellidos'][m
+[31m-    email = request.form['email'][m
+[31m-    contrasenia = request.form['contrasenia'][m
+[31m-[m
+[31m-    # Usa la fábrica para crear el usuario[m
+[31m-    nuevo_usuario = FabricaUsuario.crear_usuario(nombres, apellidos, email, contrasenia)[m
+[31m-[m
+[31m-    if registrar_usuario(nuevo_usuario):[m
+[31m-        session['usuario_id'] = nuevo_usuario.id[m
+[31m-        return redirect(url_for('home.home_page'))[m
+[31m-    else:[m
+[31m-        flash('El usuario ya existe')[m
+[31m-        return redirect(url_for('registrarse.register'))[m
+[32m+[m[32m    try:[m
+[32m+[m[32m        nombres = request.form['nombres'].strip()[m
+[32m+[m[32m        apellidos = request.form['apellidos'].strip()[m
+[32m+[m[32m        email = request.form['email'].strip()[m
+[32m+[m[32m        contrasenia = generate_password_hash(request.form['contrasenia'].strip())[m
+[32m+[m[41m        [m
+[32m+[m
+[32m+[m[32m        if not (nombres and apellidos and email and contrasenia):[m
+[32m+[m[32m            flash('Todos los campos son requeridos.')[m
+[32m+[m[32m            return redirect(url_for('home_register'))[m
+[32m+[m[41m        [m
+[32m+[m
+[32m+[m[32m        if '@' not in email or '.' not in email:[m
+[32m+[m[32m            flash('El formato del email no es válido.')[m
+[32m+[m[32m            return redirect(url_for('home_register'))[m
+[32m+[m
+[32m+[m[32m        nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)[m
+[32m+[m
+[32m+[m[32m        if registrar_usuario(nuevo_usuario):[m
+[32m+[m[32m            session['usuario_id'] = nuevo_usuario.id[m
+[32m+[m[32m            return redirect(url_for('home.home_page'))[m
+[32m+[m[32m        else:[m
+[32m+[m[32m            flash('El usuario ya existe')[m
+[32m+[m[32m            return redirect(url_for('registrarse.register'))[m
+[32m+[m
+[32m+[m[32m    except Exception as e:[m
+[32m+[m
+[32m+[m[32m        flash(f'Ocurrió un error: {str(e)}')[m
+[32m+[m[32m        return redirect(url_for('registrarse.home_register'))[m
+[41m+[m
+[1mdiff --git a/templates/vista/assets/CSS/style.css b/templates/vista/assets/CSS/style.css[m
+[1mindex 40c9a21..6d1e409 100644[m
+[1m--- a/templates/vista/assets/CSS/style.css[m
+[1m+++ b/templates/vista/assets/CSS/style.css[m
+[36m@@ -47,4 +47,4 @@[m [mbutton {[m
+ [m
+ button:hover {[m
+     background-color: #4cae4c;[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[1mdiff --git a/templates/vista/assets/HTML/crear_evento.html b/templates/vista/assets/HTML/crear_evento.html[m
+[1mindex 173a064..4c10f9b 100644[m
+[1m--- a/templates/vista/assets/HTML/crear_evento.html[m
+[1m+++ b/templates/vista/assets/HTML/crear_evento.html[m
+[36m@@ -1,5 +1,5 @@[m
+ <!DOCTYPE html>[m
+[31m-<html lang="es">[m
+[32m+[m[32m<html lang="en">[m
+ <head>[m
+     <meta charset="UTF-8">[m
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[36m@@ -11,9 +11,8 @@[m
+         <h2>Crear Evento</h2>[m
+         <form action="{{ url_for('administrador.crear_evento') }}" method="POST">[m
+             <input type="text" name="nombre" placeholder="Nombre" required><br>[m
+[31m-            <textarea name="descripcion" placeholder="Descripción" required></textarea><br>[m
+[31m-            <input type="text" name="autores" placeholder="Autores" required><br>[m
+[31m-            <input type="text" name="responsables" placeholder="Responsables" required><br>[m
+[32m+[m[32m            <input type="date" name="fecha" placeholder="Fecha" required><br>[m
+[32m+[m[32m            <input type="text" name="edicion" placeholder="Edición" required><br>[m
+             <button type="submit">Crear Evento</button>[m
+         </form>[m
+     </div>[m
+[1mdiff --git a/templates/vista/assets/HTML/home.html b/templates/vista/assets/HTML/home.html[m
+[1mindex 5c6a5ba..2ab10bd 100644[m
+[1m--- a/templates/vista/assets/HTML/home.html[m
+[1m+++ b/templates/vista/assets/HTML/home.html[m
+[36m@@ -15,7 +15,7 @@[m
+                     <a class="nav-link" href="{{ url_for('inicio_sesion.login') }}">Ingresar</a>[m
+                 </li>[m
+                 <li class="nav-item">[m
+[31m-                    <a class="nav-link" href="{{ url_for('registrarse.register') }}">Registrarse</a>[m
+[32m+[m[32m                    <a class="nav-link" href="{{ url_for('registrarse.home_register') }}">Registrarse</a>[m
+                 </li>[m
+                 <li class="nav-item">[m
+                     <a class="nav-link" href="{{ url_for('perfil.mostrar_perfil') }}">Perfil</a>[m
+[36m@@ -24,7 +24,7 @@[m
+         </div>[m
+     </nav>[m
+     <div class="container mt-5">[m
+[31m-        <h1>Eventos</h1>[m
+[32m+[m[32m        <h1>Actividades</h1>[m
+         <table class="table table-striped">[m
+             <thead>[m
+                 <tr>[m
+[36m@@ -35,12 +35,12 @@[m
+                 </tr>[m
+             </thead>[m
+             <tbody>[m
+[31m-                {% for evento in eventos %}[m
+[32m+[m[32m                {% for actividad in cronograma %}[m
+                 <tr>[m
+[31m-                    <td>{{ evento.nombre }}</td>[m
+[31m-                    <td>{{ evento.descripcion }}</td>[m
+[31m-                    <td>{{ evento.autores }}</td>[m
+[31m-                    <td>{{ evento.responsables }}</td>[m
+[32m+[m[32m                    <td>{{ actividad.nombre }}</td>[m
+[32m+[m[32m                    <td>{{ actividad.descripcion }}</td>[m
+[32m+[m[32m                    <td>{{ actividad.autores }}</td>[m
+[32m+[m[32m                    <td>{{ actividad.responsables }}</td>[m
+                 </tr>[m
+                 {% endfor %}[m
+             </tbody>[m
+[1mdiff --git a/templates/vista/assets/HTML/login.html b/templates/vista/assets/HTML/login.html[m
+[1mindex da9df37..221b056 100644[m
+[1m--- a/templates/vista/assets/HTML/login.html[m
+[1m+++ b/templates/vista/assets/HTML/login.html[m
+[36m@@ -21,3 +21,25 @@[m
+ </body>[m
+ </html>[m
+ [m
+[32m+[m[32m<html lang="en">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <link rel="stylesheet" href="/templates/vista/assets/CSS/style.css">[m
+[32m+[m[32m    <title>Inicio Sesión</title>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <div class="container">[m
+[32m+[m[32m        <h2>Inicio Sesión</h2>[m
+[32m+[m[32m        <form action="{{ url_for('inicio_sesion.login') }}" method="POST">[m
+[32m+[m[32m            <input type="email" name="email" placeholder="Email"><br>[m
+[32m+[m[32m            <input type="password" name="contrasenia" placeholder="Contraseña"><br>[m
+[32m+[m[32m            <button >Ingresar</button>[m
+[32m+[m[41m            [m
+[32m+[m[32m        </form>[m
+[32m+[m[32m        <a href="{{ url_for('registrarse.home_register') }}">[m
+[32m+[m[32m            <button>registrarse</button>[m
+[32m+[m[32m        </a>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m

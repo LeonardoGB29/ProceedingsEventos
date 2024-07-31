@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from models.entidades.Usuario import Usuario
+from werkzeug.security import generate_password_hash
 from utils.servicios.ServicioUsuario import registrar_usuario
 from utils.repositorios.sqlAlchemy.conexionBd import db
-from werkzeug.security import generate_password_hash
+from models.entidades.FabricaUsuario import FabricaUsuario  # Importa la fábrica
 
 registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')
 
@@ -18,27 +18,23 @@ def registro():
         email = request.form['email'].strip()
         contrasenia = generate_password_hash(request.form['contrasenia'].strip())
         
-
         if not (nombres and apellidos and email and contrasenia):
             flash('Todos los campos son requeridos.')
-            return redirect(url_for('home_register'))
-        
+            return redirect(url_for('registrarse.home_register'))
 
         if '@' not in email or '.' not in email:
             flash('El formato del email no es válido.')
-            return redirect(url_for('home_register'))
+            return redirect(url_for('registrarse.home_register'))
 
-        nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
+        nuevo_usuario = FabricaUsuario.crear_usuario(nombres, apellidos, email, contrasenia)
 
         if registrar_usuario(nuevo_usuario):
             session['usuario_id'] = nuevo_usuario.id
             return redirect(url_for('home.home_page'))
         else:
             flash('El usuario ya existe')
-            return redirect(url_for('registrarse.register'))
+            return redirect(url_for('registrarse.home_register'))
 
     except Exception as e:
-
         flash(f'Ocurrió un error: {str(e)}')
         return redirect(url_for('registrarse.home_register'))
-
