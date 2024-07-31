@@ -1,20 +1,13 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
+# FabricaUsuario.py
+from models.entidades.Usuario import Usuario
+from werkzeug.security import generate_password_hash
+
 class FabricaUsuario:
-    def __init__(self):
-
-        return
-
-    def crear_usuario(self, ):
-
-        return
-
-    def eliminar_usuario(self, ):
-
-        return
-
-    def actualizar_usuario(self, ):
-
-        return
-
+    @staticmethod
+    def crear_usuario(nombres, apellidos, email, contrasenia):
+        # Aquí puedes agregar lógica adicional, como validaciones o configuraciones por defecto
+        contrasenia_hashed = generate_password_hash(contrasenia)
+        return Usuario(nombres=nombres, apellidos=apellidos, email=email, contrasenia=contrasenia_hashed)
