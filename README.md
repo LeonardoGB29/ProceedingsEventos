@@ -1,9 +1,6 @@
 # ProcedingsEventos
 
-github: https://github.com/KevinRodriguezLima/ProceedingsEventos
-# LAB 9 Y 10(ABAJO)
-
-# Acividad Laboratorio 9( CLEAN CODE )
+# LAB 9
 
 # Prácticas Aplicadas
 
@@ -26,33 +23,12 @@ def initialize_database():
     with app.app_context():
         db.create_all()
 
-
-#### Comentarios
-
-Se agrego comentarios descriptivos  a funciones y rutas para mejorar la comprensión del código. Por ejemplo:
-
-def create_app():
-    
-    #Función para crear y configurar la aplicación Flask
-    app = Flask(__name__, template_folder='Vista/Assets/HTML')
-
-    #Configuración para SQLAlchemy
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Promundial1?@localhost/cronogramadb'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.init_app(app)
-
-    app.register_blueprint(rutas)
-
-    return app
-
 # Estructura de Código Fuente
 
 Se mantuvo el orden que se planteo en laboratorios anteriores, el código en módulos y paquetes claros y coherentes, siguiendo las convenciones de estructura de proyectos de Flask aunque todabia hay muchas cosas por hacer y unir con las partes de mis compañeros.
 
 # LAB 10
 
-# Principios SOLID aplicados
 # Single-responsibility principle (SRP)
 
 Cada módulo y clase en nuestro proyecto tiene una única responsabilidad. Por ejemplo, create_app se encarga solo de crear y configurar la aplicación Flask, y initialize_database se encarga de inicializar la base de datos.
@@ -68,3 +44,5 @@ Se puede decir qe utilizamos este principio al utilizar inyección de dependenci
 # Uso de SonarLint
 
 SonarLint me arroja una vulnerabilidad que es debido a que la contraseña de mi base de datos esta expuesta, me sugirio otra opcion pero la cual todavia no entendi, estoy trabajando para cambiarlo y que sea secreta.
+
+# LAB 11

@@ -6,7 +6,7 @@ from utils.servicios.ServicioUsuario import registrar_usuario
 registrarse = Blueprint('registrarse', __name__, template_folder='../templates/vista/HTML')
 
 @registrarse.route('/')
-def register():
+def home_register():
     return render_template('vista/assets/HTML/registro.html')
 
 @registrarse.route('/enviarRegistro', methods=['POST'])
@@ -18,6 +18,7 @@ def registro():
 
     nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
 
+    #verificar si el usuario ya existe
     if registrar_usuario(nuevo_usuario):
         return redirect(url_for('inicio_sesion.login'))
     else:
