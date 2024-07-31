@@ -1,4 +1,3 @@
-# routes/controlador/registrarse.py
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.entidades.Usuario import Usuario
 from utils.servicios.ServicioUsuario import registrar_usuario
@@ -11,16 +10,33 @@ def home_register():
 
 @registrarse.route('/enviarRegistro', methods=['POST'])
 def registro():
-    nombres = request.form['nombres']
-    apellidos = request.form['apellidos']
-    email = request.form['email']
-    contrasenia = request.form['contrasenia']
+    try:
+        nombres = request.form['nombres'].strip()
+        apellidos = request.form['apellidos'].strip()
+        email = request.form['email'].strip()
+        contrasenia = request.form['contrasenia'].strip()
+        
 
-    nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
+        if not (nombres and apellidos and email and contrasenia):
+            flash('Todos los campos son requeridos.')
+            return redirect(url_for('home_register'))
+        
 
-    #verificar si el usuario ya existe
-    if registrar_usuario(nuevo_usuario):
-        return redirect(url_for('inicio_sesion.login'))
-    else:
-        flash('El usuario ya existe')
-        return redirect(url_for('registrarse.register'))
+        if '@' not in email or '.' not in email:
+            flash('El formato del email no es válido.')
+            return redirect(url_for('home_register'))
+
+        nuevo_usuario = Usuario(nombres, apellidos, email, contrasenia)
+
+        if registrar_usuario(nuevo_usuario):
+            flash('Registro exitoso, por favor inicie sesión.')
+            return redirect(url_for('inicio_sesion.login'))
+        else:
+            flash('El usuario ya existe.')
+            return redirect(url_for('registrarse.home_register'))
+
+    except Exception as e:
+
+        flash(f'Ocurrió un error: {str(e)}')
+        return redirect(url_for('registrarse.home_register'))
+
