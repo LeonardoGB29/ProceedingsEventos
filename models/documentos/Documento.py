@@ -8,7 +8,6 @@ class Documento(db.Model):
     num_pag = db.Column(db.Integer, nullable=False)
     evento_id = db.Column(db.Integer, db.ForeignKey('evento.id'), nullable=False)
     autores = db.Column(db.String(50), nullable=False)
-    #autores = db.relationship() ???
 
     def __init__(self, resumen, datos, conclusion, num_pag, evento_id):
         self.resumen = resumen
@@ -25,3 +24,14 @@ class Documento(db.Model):
             "conclusion": self.conclusion,
             "num_pag": self.num_pag
         }
+
+    @staticmethod
+    def crear_documento(resumen, datos, conclusion, num_pag, evento_id):
+        try:
+            nuevo_documento = Documento(resumen, datos, conclusion, num_pag, evento_id)
+            db.session.add(nuevo_documento)
+            db.session.commit()
+            return nuevo_documento
+        except Exception as e:
+            db.session.rollback()
+            raise e
